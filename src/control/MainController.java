@@ -30,6 +30,7 @@ public class MainController {
         insertUser("Ralle");
         befriend("Silent Bob", "Ralle");
         befriend("Dörte", "Ralle");
+        befriend("Ulf", "Dörte");
     }
 
     /**
@@ -39,6 +40,10 @@ public class MainController {
      */
     public boolean insertUser(String name){
         //TODO 05: Nutzer dem sozialen Netzwerk hinzufügen.
+        if(allUsers.getVertex(name) == null) {
+            allUsers.addVertex(new Vertex(name));
+            return true;
+        }
         return false;
     }
 
@@ -49,6 +54,11 @@ public class MainController {
      */
     public boolean deleteUser(String name){
         //TODO 07: Nutzer aus dem sozialen Netzwerk entfernen.
+        Vertex help = allUsers.getVertex(name);
+        if(help != null) {
+            allUsers.removeVertex(help);
+            return true;
+        }
         return false;
     }
 
@@ -58,6 +68,23 @@ public class MainController {
      */
     public String[] getAllUsers(){
         //TODO 06: String-Array mit allen Nutzernamen erstellen.
+        List<Vertex> vertices = allUsers.getVertices();
+        int a = 0;
+        vertices.toFirst();
+        while (vertices.hasAccess()){
+            a++;
+            vertices.next();
+        }
+
+        if(a>0){
+            String[] o = new String[a];
+            vertices.toFirst();
+            for(int i = 0; i<o.length; i++){
+                o[i] = vertices.getContent().getID();
+                vertices.next();
+            }
+            return o;
+        }
         return null;
     }
 
@@ -68,6 +95,33 @@ public class MainController {
      */
     public String[] getAllFriendsFromUser(String name){
         //TODO 09: Freundesliste eines Nutzers als String-Array erstellen.
+        Vertex v = allUsers.getVertex(name);
+        if(v != null){
+            List<Edge> edges = allUsers.getEdges(v);
+            int a = 0;
+            edges.toFirst();
+            while (edges.hasAccess()){
+                a++;
+                edges.next();
+            }
+
+            if(a>0){
+                String[] o = new String[a];
+                edges.toFirst();
+                for(int i = 0; i<o.length; i++){
+                    String[] help = new String[2];
+                    help[0] = edges.getContent().getVertices()[0].getID();
+                    help[1] = edges.getContent().getVertices()[1].getID();
+                    if(!help[0].equals(name)) {
+                        o[i] = help[0];
+                    }else{
+                        o[i] = help[1];
+                    }
+                    edges.next();
+                }
+                return o;
+            }
+        }
         return null;
     }
 
@@ -80,7 +134,27 @@ public class MainController {
      */
     public double centralityDegreeOfUser(String name){
         //TODO 10: Prozentsatz der vorhandenen Freundschaften eines Nutzers von allen möglichen Freundschaften des Nutzers.
-        return 0.125456;
+        List<Vertex> allV = allUsers.getVertices();
+        Vertex v = allUsers.getVertex(name);
+        double a = 0;
+        allV.toFirst();
+        while (allV.hasAccess()){
+            a++;
+            allV.next();
+        }
+
+        double b = 0;
+        if(v != null){
+            List<Edge> friends = allUsers.getEdges(v);
+            friends.toFirst();
+            while (friends.hasAccess()){
+                b++;
+                friends.next();
+            }
+            return (b)/(a-1);
+        }
+
+        return -1.0;
     }
 
     /**
@@ -91,6 +165,15 @@ public class MainController {
      */
     public boolean befriend(String name01, String name02){
         //TODO 08: Freundschaften schließen.
+        Vertex vertex1 = allUsers.getVertex(name01);
+        Vertex vertex2 = allUsers.getVertex(name02);
+        if(vertex1 != null && vertex2 != null){
+            Edge edge = allUsers.getEdge(vertex1, vertex2);
+            if(edge == null) {
+                allUsers.addEdge(new Edge(vertex1, vertex2, 1));
+                return true;
+            }
+        }
         return false;
     }
 
@@ -102,6 +185,15 @@ public class MainController {
      */
     public boolean unfriend(String name01, String name02){
         //TODO 11: Freundschaften beenden.
+        Vertex vertex1 = allUsers.getVertex(name01);
+        Vertex vertex2 = allUsers.getVertex(name02);
+        if(vertex1 != null && vertex2 != null){
+            Edge edge = allUsers.getEdge(vertex1, vertex2);
+            if(edge != null) {
+                allUsers.removeEdge(edge);
+                return true;
+            }
+        }
         return false;
     }
 
@@ -112,7 +204,25 @@ public class MainController {
      */
     public double dense(){
         //TODO 12: Dichte berechnen.
-        return 0.12334455676;
+        List<Vertex> allVertices = allUsers.getVertices();
+        double a = 0;
+        double b = 0;
+        allVertices.toFirst();
+        while (allVertices.hasAccess()){
+            a++;
+            String[] help = getAllFriendsFromUser(allVertices.getContent().getID());
+            if(help != null) {
+                b += help.length;
+            }
+            allVertices.next();
+        }
+        a--;
+        for(double i = a-1; i>0; i--){
+            a += i;
+        }
+        b = b/2;
+
+        return b/a;
     }
 
     /**
@@ -127,6 +237,21 @@ public class MainController {
         Vertex user02 = allUsers.getVertex(name02);
         if(user01 != null && user02 != null){
             //TODO 13: Schreibe einen Algorithmus, der mindestens eine Verbindung von einem Nutzer über Zwischennutzer zu einem anderem Nutzer bestimmt. Happy Kopfzerbrechen!
+            String[] connections1 = getAllFriendsFromUser(name01);
+            String[][] connections2 = new String[connections1.length][];
+            for(int i = 0; i<connections1.length; i++){
+                connections2[i] = getAllFriendsFromUser(connections1[i]);
+            }
+
+            for (int i = 0; i < connections2.length; i++) {
+                for (int j = 0; j < connections2[i].length; j++) {
+                    if (connections2[i][j].equals(name02)) {
+                        String[] o = new String[1];
+                        o[0] = connections1[i];
+                        return o;
+                    }
+                }
+            }
         }
         return null;
     }

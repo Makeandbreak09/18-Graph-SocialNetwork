@@ -25,6 +25,7 @@
           <component id="3bf4d" class="javax.swing.JTextArea" binding="output">
             <constraints/>
             <properties>
+              <editable value="false"/>
               <font name="Courier New" size="14"/>
             </properties>
           </component>

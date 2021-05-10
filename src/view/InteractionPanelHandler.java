@@ -118,7 +118,8 @@ public class InteractionPanelHandler {
                                 str = str + links[i];
                             }
                         }
-                        str = str + to;
+                        str = str + " -> " + to;
+                        addToSysoutput(str);
                     }else{
                         addToSysoutput("Es wurde keine Verbindung zwischen " + from + " und " + to + " gefunden.");
                     }
