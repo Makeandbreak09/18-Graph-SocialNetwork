@@ -24,6 +24,21 @@ public class MainController {
      * Fügt Personen dem sozialen Netzwerk hinzu.
      */
     private void createSomeUsers(){
+        insertUser("1");
+        insertUser("2");
+        insertUser("3");
+        insertUser("4");
+        insertUser("5");
+        insertUser("6");
+
+        befriend("1", "2");
+        befriend("1", "3");
+        befriend("2", "3");
+        befriend("3", "4");
+        befriend("4", "5");
+        befriend("4", "6");
+        befriend("5", "6");
+        /*
         insertUser("Ulf");
         insertUser("Silent Bob");
         insertUser("Dörte");
@@ -31,6 +46,7 @@ public class MainController {
         befriend("Silent Bob", "Ralle");
         befriend("Dörte", "Ralle");
         befriend("Ulf", "Dörte");
+         */
     }
 
     /**
@@ -237,11 +253,31 @@ public class MainController {
      * @param name02
      * @return
      */
-    public String[] getLinksBetween(String name01, String name02){
+    public String[][] getLinksBetween(String name01, String name02){
         Vertex user01 = allUsers.getVertex(name01);
         user01.setMark(true);
         Vertex user02 = allUsers.getVertex(name02);
         List<List<Vertex>> allPaths = checkAllConnections(user01, user02, new List<Vertex>(), new List<List<Vertex>>());
+        int a = 0;
+        for(allPaths.toFirst(); allPaths.hasAccess(); allPaths.next()) {
+            a++;
+        }
+        if(a>0) {
+            String[][] s = new String[a][];
+            allPaths.toFirst();
+            for (int i = 0; allPaths.hasAccess(); allPaths.next(), i++) {
+                int b = 0;
+                for (allPaths.getContent().toFirst(); allPaths.getContent().hasAccess(); allPaths.getContent().next()) {
+                    b++;
+                }
+                s[i] = new String[b];
+                allPaths.getContent().toFirst();
+                for (int j = 0; allPaths.getContent().hasAccess(); allPaths.getContent().next(), j++) {
+                    s[i][j] = allPaths.getContent().getContent().getID();
+                }
+            }
+            return s;
+        }
 
         /*
         if(user01 != null && user02 != null){
@@ -267,19 +303,22 @@ public class MainController {
     }
 
     public List<List<Vertex>> checkAllConnections(Vertex v1, Vertex v2, List<Vertex> pPath, List<List<Vertex>> pAllPaths){
+        v1.setMark(true);
+        List<Vertex> connections = allUsers.getNeighbours(v1);
         List<Vertex> path = new List<Vertex>();
         path.concat(pPath);
-        List<Vertex> connections = allUsers.getNeighbours(v1);
         connections.toFirst();
         while (connections.hasAccess()){
-            if(connections.getContent() != v2 && !connections.getContent().isMarked()){
-                connections.getContent().setMark(true);
+            if(connections.getContent() == v2){
+                pAllPaths.append(path);
+            }else if(!connections.getContent().isMarked()){
                 path.append(connections.getContent());
                 checkAllConnections(connections.getContent(), v2, path, pAllPaths);
-            }else if(connections.getContent() == v2){
-                pAllPaths.append(path);
             }
+            connections.next();
         }
-        return null;
+        v1.setMark(false);
+
+        return pAllPaths;
     }
 }
