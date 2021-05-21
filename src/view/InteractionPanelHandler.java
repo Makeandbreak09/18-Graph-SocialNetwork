@@ -112,15 +112,12 @@ public class InteractionPanelHandler {
                     if(links != null){
                         String str = "";
                         for(int i = 0; i < links.length; i++){
-                            str = from + " -> ";
+                            str += from + " -> ";
                             for(int j = 0; j < links[i].length; j++) {
-                                if (i != links.length - 1) {
-                                    str = str + links[i][j] + " -> ";
-                                } else {
-                                    str = str + links[i][j];
-                                }
+                                str = str + links[i][j] + " -> ";
+
                             }
-                            str = str + " -> " + to + "\n";
+                            str = str + to + "\n";
                         }
                         addToSysoutput(str);
                     }else{

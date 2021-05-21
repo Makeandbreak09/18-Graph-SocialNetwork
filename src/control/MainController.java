@@ -305,10 +305,14 @@ public class MainController {
     public List<List<Vertex>> checkAllConnections(Vertex v1, Vertex v2, List<Vertex> pPath, List<List<Vertex>> pAllPaths){
         v1.setMark(true);
         List<Vertex> connections = allUsers.getNeighbours(v1);
-        List<Vertex> path = new List<Vertex>();
-        path.concat(pPath);
         connections.toFirst();
         while (connections.hasAccess()){
+            List<Vertex> path = new List<Vertex>();
+            pPath.toFirst();
+            while (pPath.hasAccess()){
+                path.append(pPath.getContent());
+                pPath.next();
+            }
             if(connections.getContent() == v2){
                 pAllPaths.append(path);
             }else if(!connections.getContent().isMarked()){
