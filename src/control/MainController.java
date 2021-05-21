@@ -151,7 +151,10 @@ public class MainController {
                 b++;
                 friends.next();
             }
-            return (b)/(a-1);
+            if(a>1) {
+                return (b) / (a - 1);
+            }
+            return 0.0;
         }
 
         return -1.0;
@@ -221,8 +224,10 @@ public class MainController {
             a += i;
         }
         b = b/2;
-
-        return b/a;
+        if(a>0) {
+            return b / a;
+        }
+        return 0.0;
     }
 
     /**
@@ -234,7 +239,11 @@ public class MainController {
      */
     public String[] getLinksBetween(String name01, String name02){
         Vertex user01 = allUsers.getVertex(name01);
+        user01.setMark(true);
         Vertex user02 = allUsers.getVertex(name02);
+        List<List<Vertex>> allPaths = checkAllConnections(user01, user02, new List<Vertex>(), new List<List<Vertex>>());
+
+        /*
         if(user01 != null && user02 != null){
             //TODO 13: Schreibe einen Algorithmus, der mindestens eine Verbindung von einem Nutzer über Zwischennutzer zu einem anderem Nutzer bestimmt. Happy Kopfzerbrechen!
             String[] connections1 = getAllFriendsFromUser(name01);
@@ -251,6 +260,24 @@ public class MainController {
                         return o;
                     }
                 }
+            }
+        }
+         */
+        return null;
+    }
+
+    public List<List<Vertex>> checkAllConnections(Vertex v1, Vertex v2, List<Vertex> pPath, List<List<Vertex>> pAllPaths){
+        List<Vertex> path = new List<Vertex>();
+        path.concat(pPath);
+        List<Vertex> connections = allUsers.getNeighbours(v1);
+        connections.toFirst();
+        while (connections.hasAccess()){
+            if(connections.getContent() != v2 && !connections.getContent().isMarked()){
+                connections.getContent().setMark(true);
+                path.append(connections.getContent());
+                checkAllConnections(connections.getContent(), v2, path, pAllPaths);
+            }else if(connections.getContent() == v2){
+                pAllPaths.append(path);
             }
         }
         return null;
