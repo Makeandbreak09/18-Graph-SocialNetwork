@@ -254,51 +254,34 @@ public class MainController {
      * @return
      */
     public String[][] getLinksBetween(String name01, String name02){
+        //TODO 13: Schreibe einen Algorithmus, der mindestens eine Verbindung von einem Nutzer über Zwischennutzer zu einem anderem Nutzer bestimmt. Happy Kopfzerbrechen!
         Vertex user01 = allUsers.getVertex(name01);
-        user01.setMark(true);
         Vertex user02 = allUsers.getVertex(name02);
-        List<List<Vertex>> allPaths = checkAllConnections(user01, user02, new List<Vertex>(), new List<List<Vertex>>());
-        int a = 0;
-        for(allPaths.toFirst(); allPaths.hasAccess(); allPaths.next()) {
-            a++;
-        }
-        if(a>0) {
-            String[][] s = new String[a][];
-            allPaths.toFirst();
-            for (int i = 0; allPaths.hasAccess(); allPaths.next(), i++) {
-                int b = 0;
-                for (allPaths.getContent().toFirst(); allPaths.getContent().hasAccess(); allPaths.getContent().next()) {
-                    b++;
-                }
-                s[i] = new String[b];
-                allPaths.getContent().toFirst();
-                for (int j = 0; allPaths.getContent().hasAccess(); allPaths.getContent().next(), j++) {
-                    s[i][j] = allPaths.getContent().getContent().getID();
-                }
-            }
-            return s;
-        }
-
-        /*
         if(user01 != null && user02 != null){
-            //TODO 13: Schreibe einen Algorithmus, der mindestens eine Verbindung von einem Nutzer über Zwischennutzer zu einem anderem Nutzer bestimmt. Happy Kopfzerbrechen!
-            String[] connections1 = getAllFriendsFromUser(name01);
-            String[][] connections2 = new String[connections1.length][];
-            for(int i = 0; i<connections1.length; i++){
-                connections2[i] = getAllFriendsFromUser(connections1[i]);
+            user01.setMark(true);
+            List<List<Vertex>> allPaths = checkAllConnections(user01, user02, new List<Vertex>(), new List<List<Vertex>>());
+            int a = 0;
+            for(allPaths.toFirst(); allPaths.hasAccess(); allPaths.next()) {
+                a++;
             }
-
-            for (int i = 0; i < connections2.length; i++) {
-                for (int j = 0; j < connections2[i].length; j++) {
-                    if (connections2[i][j].equals(name02)) {
-                        String[] o = new String[1];
-                        o[0] = connections1[i];
-                        return o;
+            if(a>0) {
+                String[][] s = new String[a][];
+                allPaths.toFirst();
+                for (int i = 0; allPaths.hasAccess(); allPaths.next(), i++) {
+                    int b = 0;
+                    for (allPaths.getContent().toFirst(); allPaths.getContent().hasAccess(); allPaths.getContent().next()) {
+                        b++;
+                    }
+                    s[i] = new String[b];
+                    allPaths.getContent().toFirst();
+                    for (int j = 0; allPaths.getContent().hasAccess(); allPaths.getContent().next(), j++) {
+                        s[i][j] = allPaths.getContent().getContent().getID();
                     }
                 }
+                return s;
             }
         }
-         */
+
         return null;
     }
 
