@@ -308,4 +308,40 @@ public class MainController {
 
         return pAllPaths;
     }
+
+    /**
+     * Gibt zurück, ob es sich bei allUsers um einen zusammenhängenden Graphen handelt, also kein Knoten ohne Nachbarn ist.
+     * @return true, falls zusammenhängend, sonst false.
+     */
+    public boolean testIfConnectedEasy(){
+        //TODO 14: Schreibe einen Algorithmus, der explizit den von uns benutzten Aufbau der Datenstruktur Graph und ihre angebotenen Methoden so ausnutzt, dass schnell (!) iterativ geprüft werden kann, ob der Graph allUsers zusammenhängend ist. Dies lässt sich mit einer einzigen Schleife prüfen.
+        List<Vertex> help = allUsers.getVertices();
+        for(help.toFirst(); help.hasAccess(); help.next()){
+            if(allUsers.getNeighbours(help.getContent()).isEmpty()){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Gibt zurück, ob vom ersten Knoten in der Liste aller Knoten ausgehend alle anderen Knoten erreicht, also markiert werden können.
+     * Nach der Prüfung werden noch vor der Rückgabe alle Knoten demarkiert.
+     * @return true, falls alle Knoten vom ersten ausgehend markiert wurden, sonst false.
+     */
+    public boolean testIfConnectedTough(){
+        //TODO 15: Schreibe einen Algorithmus, der ausgehend vom ersten Knoten in der Liste aller Knoten versucht, alle anderen Knoten über Kanten zu erreichen und zu markieren.
+        List<Vertex> helpList = allUsers.getVertices();
+        helpList.toFirst();
+        Vertex firstUser = null;
+        if(helpList.hasAccess()) {
+            firstUser = helpList.getContent();
+        }
+        for(helpList.next(); helpList.hasAccess(); helpList.next()){
+            if(getLinksBetween(firstUser.getID(), helpList.getContent().getID()) == null){
+                return false;
+            }
+        }
+        return true;
+    }
 }

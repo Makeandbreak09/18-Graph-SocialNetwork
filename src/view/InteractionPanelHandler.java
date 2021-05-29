@@ -26,6 +26,8 @@ public class InteractionPanelHandler {
     private JButton deleteButton;
     private JPanel panel;
     private JTextArea systemOutput;
+    private JButton connected1Button;
+    private JButton connected2Button;
 
     private MainController mainController;
 
@@ -125,6 +127,26 @@ public class InteractionPanelHandler {
                     }
                 }else{
                     addToSysoutput("Für die Suche müssen Sie zwei Personen angeben.");
+                }
+            }
+        });
+        connected1Button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(mainController.testIfConnectedEasy()){
+                    addToSysoutput("Der Baum ist zusammenhängend.");
+                }else{
+                    addToSysoutput("Der Baum ist nicht zusammenhängend.");
+                }
+            }
+        });
+        connected2Button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(mainController.testIfConnectedTough()){
+                    addToSysoutput("Der Baum ist zusammenhängend.");
+                }else{
+                    addToSysoutput("Der Baum ist nicht zusammenhängend.");
                 }
             }
         });
