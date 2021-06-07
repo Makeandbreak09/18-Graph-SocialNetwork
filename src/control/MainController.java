@@ -336,7 +336,7 @@ public class MainController {
     public boolean testIfConnectedTough(){
         //TODO 15: Schreibe einen Algorithmus, der ausgehend vom ersten Knoten in der Liste aller Knoten versucht, alle anderen Knoten über Kanten zu erreichen und zu markieren.
         List<Vertex> helpList = allUsers.getVertices();
-        if(helpList == null){
+        if(helpList == null || helpList.isEmpty()){
             return false;
         }
         helpList.toFirst();
