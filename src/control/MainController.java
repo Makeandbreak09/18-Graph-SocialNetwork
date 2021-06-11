@@ -358,7 +358,7 @@ public class MainController {
     }
 
     public String[] duerftIhrEuchEUberlegen(String name){
-        //TODO 16:
+        //TODO 16: Schmappt sich den Teilgraphen, der mit dem angegebenem Nutzer verbunden ist.
         allUsers.setAllVertexMarks(false);
         Vertex v = allUsers.getVertex(name);
         String[] o = null;
