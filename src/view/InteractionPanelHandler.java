@@ -28,6 +28,7 @@ public class InteractionPanelHandler {
     private JTextArea systemOutput;
     private JButton connected1Button;
     private JButton connected2Button;
+    private JButton getConnectedGraph;
 
     private MainController mainController;
 
@@ -147,6 +148,21 @@ public class InteractionPanelHandler {
                     addToSysoutput("Der Baum ist zusammenhängend.");
                 }else{
                     addToSysoutput("Der Baum ist nicht zusammenhängend.");
+                }
+            }
+        });
+        getConnectedGraph.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(!personInSN.getText().isEmpty()) {
+                    String[] a = mainController.duerftIhrEuchEUberlegen(personInSN.getText());
+                    String str = "";
+                    for(int i = 0; i < a.length; i++){
+                        str = str + a[i] + "; ";
+                    }
+                    addToSysoutput(str);
+                }else{
+                    addToSysoutput("Der Nutzer existiert nicht.");
                 }
             }
         });
