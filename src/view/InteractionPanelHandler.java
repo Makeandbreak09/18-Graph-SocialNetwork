@@ -156,13 +156,17 @@ public class InteractionPanelHandler {
             public void actionPerformed(ActionEvent e) {
                 if(!personInSN.getText().isEmpty()) {
                     String[] a = mainController.duerftIhrEuchEUberlegen(personInSN.getText());
-                    String str = "";
-                    for(int i = 0; i < a.length; i++){
-                        str = str + a[i] + "; ";
+                    if(a!=null && a.length>0) {
+                        String str = "";
+                        for (int i = 0; i < a.length; i++) {
+                            str = str + a[i] + "; ";
+                        }
+                        addToSysoutput(str);
+                    }else{
+                        addToSysoutput("Der Nutzer existiert nicht.");
                     }
-                    addToSysoutput(str);
                 }else{
-                    addToSysoutput("Der Nutzer existiert nicht.");
+                    addToSysoutput("Bitte geben Sie einen Namen ein.");
                 }
             }
         });
