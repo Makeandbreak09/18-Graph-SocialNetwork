@@ -28,6 +28,7 @@ public class InteractionPanelHandler {
     private JTextArea systemOutput;
     private JButton connected1Button;
     private JButton connected2Button;
+    private JButton breitensuche;
 
     private MainController mainController;
 
@@ -147,6 +148,26 @@ public class InteractionPanelHandler {
                     addToSysoutput("Der Baum ist zusammenhängend.");
                 }else{
                     addToSysoutput("Der Baum ist nicht zusammenhängend.");
+                }
+            }
+        });
+        breitensuche.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(!personInSN.getText().isEmpty()){
+                    String name = personInSN.getText();
+                    String[] links = mainController.breitenSuche(name);
+                    if(links != null){
+                        String str = "";
+                        for(int i = 0; i < links.length; i++){
+                            str = str + links[i] + "; ";
+                        }
+                        addToSysoutput(str);
+                    }else{
+                        addToSysoutput("Der Nutzer  " + name + " existiert nicht.");
+                    }
+                }else{
+                    addToSysoutput("Bitte geben Sie einen Namen ein.");
                 }
             }
         });
