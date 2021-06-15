@@ -344,7 +344,6 @@ public class MainController {
         }
         return true;
     }
-<<<<<<< HEAD
 
 <<<<<<< HEAD
     public String[] breitenSuche(String name){
@@ -398,6 +397,4 @@ public class MainController {
         }
         return o;
     }
-=======
->>>>>>> parent of 43b0f6a (getConnectedVertices)
 }
