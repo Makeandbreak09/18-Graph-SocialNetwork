@@ -345,12 +345,49 @@ public class MainController {
         return true;
     }
 
-<<<<<<< HEAD
-    public String[] breitenSuche(String name){
-=======
     public String[] duerftIhrEuchEUberlegen(String name){
-        //TODO 16:
->>>>>>> parent of 4b2c42d (Update MainController.java)
+        //TODO 16: Schmappt sich den Teilgraphen, der mit dem angegebenem Nutzer verbunden ist.
+        allUsers.setAllVertexMarks(false);
+        Vertex v = allUsers.getVertex(name);
+        String[] o = null;
+        if(v!=null) {
+            duerftIhrEuchEUberlegenRec(v);
+
+            int counter = 0;
+            List<Vertex> help = allUsers.getVertices();
+            help.toFirst();
+            while (help.hasAccess()){
+                if(help.getContent().isMarked()){
+                    counter++;
+                }
+                help.next();
+            }
+
+            o = new String[counter];
+            help.toFirst();
+            for (int i = 0; help.hasAccess(); i++){
+                if(help.getContent().isMarked()){
+                    o[i] = help.getContent().getID();
+                }
+                help.next();
+            }
+        }
+        return o;
+    }
+
+    private void duerftIhrEuchEUberlegenRec(Vertex v){
+        if(!v.isMarked()) {
+            v.setMark(true);
+            List<Vertex> neighbors = allUsers.getNeighbours(v);
+            neighbors.toFirst();
+            while (neighbors.hasAccess()) {
+                duerftIhrEuchEUberlegenRec(neighbors.getContent());
+                neighbors.next();
+            }
+        }
+    }
+
+    public String[] breitenSuche(String name){
         allUsers.setAllVertexMarks(false);
 
         String[] o = null;
