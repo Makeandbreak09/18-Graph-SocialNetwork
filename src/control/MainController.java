@@ -345,7 +345,12 @@ public class MainController {
         return true;
     }
 
+<<<<<<< HEAD
     public String[] breitenSuche(String name){
+=======
+    public String[] duerftIhrEuchEUberlegen(String name){
+        //TODO 16:
+>>>>>>> parent of 4b2c42d (Update MainController.java)
         allUsers.setAllVertexMarks(false);
 
         String[] o = null;
