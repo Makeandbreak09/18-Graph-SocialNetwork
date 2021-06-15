@@ -28,7 +28,10 @@ public class InteractionPanelHandler {
     private JTextArea systemOutput;
     private JButton connected1Button;
     private JButton connected2Button;
+<<<<<<< HEAD
     private JButton breitensuche;
+=======
+>>>>>>> parent of 43b0f6a (getConnectedVertices)
 
     private MainController mainController;
 
@@ -151,6 +154,7 @@ public class InteractionPanelHandler {
                 }
             }
         });
+<<<<<<< HEAD
         breitensuche.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -171,6 +175,8 @@ public class InteractionPanelHandler {
                 }
             }
         });
+=======
+>>>>>>> parent of 43b0f6a (getConnectedVertices)
     }
 
     public JPanel getPanel(){
