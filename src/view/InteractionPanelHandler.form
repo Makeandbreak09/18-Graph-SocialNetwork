@@ -51,7 +51,7 @@
       </component>
       <component id="47397" class="javax.swing.JLabel">
         <constraints>
-          <grid row="1" column="1" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="1" row-span="3" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <font size="12" style="1"/>
@@ -60,7 +60,7 @@
       </component>
       <component id="3302f" class="javax.swing.JTextField" binding="personInSN">
         <constraints>
-          <grid row="1" column="2" row-span="2" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+          <grid row="1" column="2" row-span="3" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
@@ -76,7 +76,7 @@
       </component>
       <component id="5aff0" class="javax.swing.JLabel">
         <constraints>
-          <grid row="3" column="1" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="4" column="1" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <font size="12" style="1"/>
@@ -85,7 +85,7 @@
       </component>
       <component id="418db" class="javax.swing.JTextField" binding="friendInSN">
         <constraints>
-          <grid row="3" column="2" row-span="2" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+          <grid row="4" column="2" row-span="2" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
@@ -93,7 +93,7 @@
       </component>
       <component id="ef144" class="javax.swing.JButton" binding="newFriendshipButton">
         <constraints>
-          <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Freundschaft knüpfen"/>
@@ -101,7 +101,7 @@
       </component>
       <component id="7a27f" class="javax.swing.JButton" binding="killFriendshipButton">
         <constraints>
-          <grid row="4" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="5" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Freundschaft beenden"/>
@@ -109,7 +109,7 @@
       </component>
       <component id="cca50" class="javax.swing.JLabel">
         <constraints>
-          <grid row="5" column="1" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+          <grid row="6" column="1" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <font size="12" style="1"/>
@@ -119,7 +119,7 @@
       </component>
       <component id="8e38d" class="javax.swing.JTextField" binding="personFrom">
         <constraints>
-          <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="10" fill="1" indent="0" use-parent-layout="false">
+          <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="10" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
@@ -127,7 +127,7 @@
       </component>
       <component id="1f695" class="javax.swing.JButton" binding="searchButton">
         <constraints>
-          <grid row="5" column="3" row-span="2" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="6" column="3" row-span="2" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Suchen"/>
@@ -135,7 +135,7 @@
       </component>
       <component id="13a22" class="javax.swing.JButton" binding="deleteButton">
         <constraints>
-          <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Entfernen"/>
@@ -143,7 +143,7 @@
       </component>
       <component id="a684b" class="javax.swing.JTextField" binding="personTo">
         <constraints>
-          <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="9" fill="1" indent="0" use-parent-layout="false">
+          <grid row="7" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="9" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
           </grid>
         </constraints>
@@ -177,7 +177,11 @@
       </scrollpane>
       <component id="61cab" class="javax.swing.JButton" binding="connected1Button" default-binding="true">
         <constraints>
+<<<<<<< HEAD
           <grid row="7" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="2" fill="1" indent="0" use-parent-layout="false"/>
+=======
+          <grid row="8" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+>>>>>>> 4b2c42ddd851e0a5d666c942d88d302a46c38d96
         </constraints>
         <properties>
           <text value="Connected? 1"/>
@@ -185,18 +189,31 @@
       </component>
       <component id="fddb8" class="javax.swing.JButton" binding="connected2Button">
         <constraints>
+<<<<<<< HEAD
           <grid row="8" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
+=======
+          <grid row="9" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+>>>>>>> 4b2c42ddd851e0a5d666c942d88d302a46c38d96
         </constraints>
         <properties>
           <text value="Connected? 2"/>
         </properties>
       </component>
+<<<<<<< HEAD
       <component id="d34e5" class="javax.swing.JButton" binding="breitensuche">
         <constraints>
           <grid row="9" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Breitensuche"/>
+=======
+      <component id="41703" class="javax.swing.JButton" binding="getConnectedGraph">
+        <constraints>
+          <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="GetConnectedGraph"/>
+>>>>>>> 4b2c42ddd851e0a5d666c942d88d302a46c38d96
         </properties>
       </component>
     </children>
