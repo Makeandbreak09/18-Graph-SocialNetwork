@@ -5,6 +5,8 @@ import model.Graph;
 import model.List;
 import model.Vertex;
 
+import javax.swing.tree.TreeModel;
+
 /**
  * Created by Jean-Pierre on 12.01.2017.
  */
@@ -24,6 +26,30 @@ public class MainController {
      * Fügt Personen dem sozialen Netzwerk hinzu.
      */
     private void createSomeUsers(){
+        //Freundschaftsgraph aus dem Unterricht (Tafel und Arbeitsblatt)
+        insertUser("Anton");
+        insertUser("Berta");
+        insertUser("Charlotte");
+        insertUser("Dora");
+        insertUser("Emil");
+        insertUser("Friedich");
+        insertUser("Gustav");
+        insertUser("Heinrich");
+        befriend("Anton", "Emil");
+        befriend("Anton", "Friedich");
+        befriend("Anton", "Dora");
+        befriend("Berta", "Friedich");
+        befriend("Berta", "Charlotte");
+        befriend("Berta", "Dora");
+        befriend("Berta", "Gustav");
+        befriend("Charlotte", "Friedich");
+        befriend("Charlotte", "Dora");
+        befriend("Dora", "Emil");
+        befriend("Dora", "Gustav");
+        befriend("Emil", "Heinrich");
+
+
+        /*
         insertUser("1");
         insertUser("2");
         insertUser("3");
@@ -38,6 +64,7 @@ public class MainController {
         befriend("4", "5");
         befriend("4", "6");
         befriend("5", "6");
+         */
         /*
         insertUser("Ulf");
         insertUser("Silent Bob");
@@ -48,6 +75,30 @@ public class MainController {
         befriend("Ulf", "Dörte");
          */
     }
+    //Freundschaftsgraph aus dem Unterricht (Tafel und Arbeitsblatt)
+    private void createSomeUsers(){
+        insertUser("Anton");
+        insertUser("Berta");
+        insertUser("Charlotte");
+        insertUser("Dora");
+        insertUser("Emil");
+        insertUser("Friedich");
+        insertUser("Gustav");
+        insertUser("Heinrich");
+        befriend("Anton", "Emil");
+        befriend("Anton", "Friedich");
+        befriend("Anton", "Dora");
+        befriend("Berta", "Friedich");
+        befriend("Berta", "Charlotte");
+        befriend("Berta", "Dora");
+        befriend("Berta", "Gustav");
+        befriend("Charlotte", "Friedich");
+        befriend("Charlotte", "Dora");
+        befriend("Dora", "Emil");
+        befriend("Dora", "Gustav");
+        befriend("Emil", "Heinrich");
+    }
+
 
     /**
      * Fügt einen Nutzer hinzu, falls dieser noch nicht existiert.
@@ -434,4 +485,22 @@ public class MainController {
         }
         return o;
     }
+
+    /**
+     * Gibt eine kürzeste Verbindung zwischen zwei Personen des Sozialen Netzwerkes als String-Array zurück,
+     * falls die Personen vorhanden sind und sie über eine oder mehrere Ecken miteinander verbunden sind.
+     * @param name01
+     * @param name02
+     * @return
+     */
+    public String[] shortestPath(String name01, String name02){
+        Vertex user01 = allUsers.getVertex(name01);
+        Vertex user02 = allUsers.getVertex(name02);
+        if(user01 != null && user02 != null){
+            //TODO 17: Schreibe einen Algorithmus, der die kürzeste Verbindung zwischen den Nutzern name01 und name02 als String-Array zurückgibt.
+
+        }
+        return null;
+    }
+
 }
