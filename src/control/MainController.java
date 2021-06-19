@@ -6,6 +6,7 @@ import model.List;
 import model.Vertex;
 
 import javax.swing.tree.TreeModel;
+import java.util.Stack;
 
 /**
  * Created by Jean-Pierre on 12.01.2017.
@@ -74,29 +75,6 @@ public class MainController {
         befriend("Dörte", "Ralle");
         befriend("Ulf", "Dörte");
          */
-    }
-    //Freundschaftsgraph aus dem Unterricht (Tafel und Arbeitsblatt)
-    private void createSomeUsers(){
-        insertUser("Anton");
-        insertUser("Berta");
-        insertUser("Charlotte");
-        insertUser("Dora");
-        insertUser("Emil");
-        insertUser("Friedich");
-        insertUser("Gustav");
-        insertUser("Heinrich");
-        befriend("Anton", "Emil");
-        befriend("Anton", "Friedich");
-        befriend("Anton", "Dora");
-        befriend("Berta", "Friedich");
-        befriend("Berta", "Charlotte");
-        befriend("Berta", "Dora");
-        befriend("Berta", "Gustav");
-        befriend("Charlotte", "Friedich");
-        befriend("Charlotte", "Dora");
-        befriend("Dora", "Emil");
-        befriend("Dora", "Gustav");
-        befriend("Emil", "Heinrich");
     }
 
 
@@ -438,54 +416,6 @@ public class MainController {
         }
     }
 
-    public String[] breitenSuche(String name){
-        allUsers.setAllVertexMarks(false);
-
-        String[] o = null;
-        Vertex v = allUsers.getVertex(name);
-        if(v!=null) {
-            List<Vertex> help = new List<>();
-            v.setMark(true);
-            help.append(v);
-            help.concat(allUsers.getNeighbours(v));
-
-            help.toFirst();
-            while (help.hasAccess()){
-                help.getContent().setMark(true);
-                help.next();
-            }
-
-            help.toFirst();
-            while (help.hasAccess()){
-                List<Vertex> help2 = allUsers.getNeighbours(help.getContent());
-                help2.toFirst();
-                while (help2.hasAccess()){
-                    if(!help2.getContent().isMarked()) {
-                        help2.getContent().setMark(true);
-                        help.append(help2.getContent());
-                    }
-                    help2.next();
-                }
-                help.next();
-            }
-
-            int a = 0;
-            help.toFirst();
-            while (help.hasAccess()){
-                a++;
-                help.next();
-            }
-
-            o = new String[a];
-            help.toFirst();
-            for (int i = 0; help.hasAccess(); i++){
-                o[i] = help.getContent().getID();
-                help.next();
-            }
-        }
-        return o;
-    }
-
     /**
      * Gibt eine kürzeste Verbindung zwischen zwei Personen des Sozialen Netzwerkes als String-Array zurück,
      * falls die Personen vorhanden sind und sie über eine oder mehrere Ecken miteinander verbunden sind.
@@ -498,9 +428,82 @@ public class MainController {
         Vertex user02 = allUsers.getVertex(name02);
         if(user01 != null && user02 != null){
             //TODO 17: Schreibe einen Algorithmus, der die kürzeste Verbindung zwischen den Nutzern name01 und name02 als String-Array zurückgibt.
+            List<Vertex>[] a = breitenSuche(name01);
+            boolean test = false;
+            a[0].toFirst();
+            while (a[0].hasAccess()){
+                if(a[0].getContent() == user02){
+                    test = true;
+                }
+                a[0].next();
+            }
+
+            if(test) {
+                Stack<Vertex> help = new Stack<>();
+                int counter = 0;
+
+                Vertex target = user02;
+                while (target != user01) {
+                    help.push(target);
+                    counter++;
+                    a[0].toFirst();
+                    a[1].toFirst();
+                    while (a[0].hasAccess() && a[0].getContent() != target) {
+                        a[0].next();
+                        a[1].next();
+                    }
+                    target = a[1].getContent();
+                }
+                counter++;
+                help.push(user01);
+
+                String[] o = new String[counter];
+                for (int i = 0; i < counter; i++) {
+                    o[i] = help.pop().getID();
+                }
+                return o;
+            }
 
         }
         return null;
     }
 
+    public List<Vertex>[] breitenSuche(String name){
+        allUsers.setAllVertexMarks(false);
+
+        List<Vertex>[] o = new List[2];
+        o[0] = new List<>();
+        o[1] = new List<>();
+        Vertex v = allUsers.getVertex(name);
+        if(v!=null) {
+            v.setMark(true);
+            o[0].append(v);
+            o[1].append(v);
+
+            List<Vertex> help = allUsers.getNeighbours(v);
+            help.toFirst();
+            while (help.hasAccess()){
+                help.getContent().setMark(true);
+                o[0].append(help.getContent());
+                o[1].append(v);
+                help.next();
+            }
+
+            o[0].toFirst();
+            while (o[0].hasAccess()){
+                help = allUsers.getNeighbours(o[0].getContent());
+                help.toFirst();
+                while (help.hasAccess()){
+                    if(!help.getContent().isMarked()) {
+                        help.getContent().setMark(true);
+                        o[0].append(help.getContent());
+                        o[1].append(o[0].getContent());
+                    }
+                    help.next();
+                }
+                o[0].next();
+            }
+        }
+        return o;
+    }
 }

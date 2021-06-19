@@ -29,6 +29,7 @@ public class InteractionPanelHandler {
     private JButton connected1Button;
     private JButton connected2Button;
     private JButton getConnectedGraph;
+    private JButton getShortestPath;
     private JButton breitensuche;
 
     private MainController mainController;
@@ -119,7 +120,6 @@ public class InteractionPanelHandler {
                             str += from + " -> ";
                             for(int j = 0; j < links[i].length; j++) {
                                 str = str + links[i][j] + " -> ";
-
                             }
                             str = str + to + "\n";
                         }
@@ -171,23 +171,24 @@ public class InteractionPanelHandler {
                 }
             }
         });
-        breitensuche.addActionListener(new ActionListener() {
+        getShortestPath.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(!personInSN.getText().isEmpty()){
-                    String name = personInSN.getText();
-                    String[] links = mainController.breitenSuche(name);
-                    if(links != null){
+                if(!personFrom.getText().isEmpty() && !personTo.getText().isEmpty()){
+                    String from = personFrom.getText();
+                    String to   = personTo.getText();
+                    String[] link = mainController.shortestPath(from, to);
+                    if(link != null){
                         String str = "";
-                        for(int i = 0; i < links.length; i++){
-                            str = str + links[i] + "; ";
+                        for(int i = 0; i < link.length; i++){
+                            str = str + link[i] + " -> ";
                         }
                         addToSysoutput(str);
                     }else{
-                        addToSysoutput("Der Nutzer  " + name + " existiert nicht.");
+                        addToSysoutput("Es wurde keine Verbindung zwischen " + from + " und " + to + " gefunden.");
                     }
                 }else{
-                    addToSysoutput("Bitte geben Sie einen Namen ein.");
+                    addToSysoutput("Für die Suche müssen Sie zwei Personen angeben.");
                 }
             }
         });
