@@ -27,6 +27,25 @@ public class MainController {
      * Fügt Personen dem sozialen Netzwerk hinzu.
      */
     private void createSomeUsers(){
+        insertUser("S");
+        insertUser("A");
+        insertUser("B");
+        insertUser("C");
+        insertUser("D");
+        insertUser("Z");
+        befriend("S", "A");
+        befriend("S", "B");
+        befriend("S", "A");
+        befriend("A", "B");
+        befriend("A", "C");
+        befriend("A", "D");
+        befriend("B", "D");
+        befriend("C", "D");
+        befriend("C", "Z");
+        befriend("D", "Z");
+
+
+        /*
         //Freundschaftsgraph aus dem Unterricht (Tafel und Arbeitsblatt)
         insertUser("Anton");
         insertUser("Berta");
@@ -439,13 +458,13 @@ public class MainController {
             }
 
             if(test) {
-                Stack<Vertex> help = new Stack<>();
+                Stack<Vertex> path = new Stack<>();
                 int counter = 0;
 
                 Vertex target = user02;
                 while (target != user01) {
-                    help.push(target);
                     counter++;
+                    path.push(target);
                     a[0].toFirst();
                     a[1].toFirst();
                     while (a[0].hasAccess() && a[0].getContent() != target) {
@@ -455,11 +474,11 @@ public class MainController {
                     target = a[1].getContent();
                 }
                 counter++;
-                help.push(user01);
+                path.push(user01);
 
                 String[] o = new String[counter];
                 for (int i = 0; i < counter; i++) {
-                    o[i] = help.pop().getID();
+                    o[i] = path.pop().getID();
                 }
                 return o;
             }
@@ -480,18 +499,9 @@ public class MainController {
             o[0].append(v);
             o[1].append(v);
 
-            List<Vertex> help = allUsers.getNeighbours(v);
-            help.toFirst();
-            while (help.hasAccess()){
-                help.getContent().setMark(true);
-                o[0].append(help.getContent());
-                o[1].append(v);
-                help.next();
-            }
-
             o[0].toFirst();
             while (o[0].hasAccess()){
-                help = allUsers.getNeighbours(o[0].getContent());
+                List<Vertex> help = allUsers.getNeighbours(o[0].getContent());
                 help.toFirst();
                 while (help.hasAccess()){
                     if(!help.getContent().isMarked()) {
