@@ -3,8 +3,7 @@ package view;
 import control.MainController;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -30,6 +29,7 @@ public class InteractionPanelHandler {
     private JButton connected2Button;
     private JButton getConnectedGraph;
     private JButton getShortestPath;
+    private JTextField weight;
     private JButton breitensuche;
 
     private MainController mainController;
@@ -41,6 +41,13 @@ public class InteractionPanelHandler {
     }
 
     private void createButtons(){
+        weight.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent keyEvent) {
+                if(Integer.valueOf(keyEvent.getKeyChar()) > 0) return;
+                super.keyTyped(keyEvent);
+            }
+        });
         insertButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -79,7 +86,7 @@ public class InteractionPanelHandler {
                 if(!personInSN.getText().isEmpty() && !friendInSN.getText().isEmpty()){
                     String person = personInSN.getText();
                     String friend = friendInSN.getText();
-                    if(mainController.befriend(person, friend)){
+                    if(mainController.befriend(person, friend, Integer.getInteger(weight.getText()))){
                         update();
                         addToSysoutput("Die Nutzer " + person + " und " + friend + " sind nun Freunde.");
                     }else{

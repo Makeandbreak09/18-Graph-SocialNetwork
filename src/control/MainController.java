@@ -33,16 +33,15 @@ public class MainController {
         insertUser("C");
         insertUser("D");
         insertUser("Z");
-        befriend("S", "A");
-        befriend("S", "B");
-        befriend("S", "A");
-        befriend("A", "B");
-        befriend("A", "C");
-        befriend("A", "D");
-        befriend("B", "D");
-        befriend("C", "D");
-        befriend("C", "Z");
-        befriend("D", "Z");
+        befriend("S", "A", 10);
+        befriend("S", "B", 5);
+        befriend("A", "B", 2);
+        befriend("A", "C", 6);
+        befriend("A", "D", 3);
+        befriend("B", "D", 9);
+        befriend("C", "D", 2);
+        befriend("C", "Z", 1);
+        befriend("D", "Z", 5);
 
 
         /*
@@ -230,14 +229,14 @@ public class MainController {
      * @param name02
      * @return true, falls eine neue Freundeschaft entstanden ist, ansonsten false.
      */
-    public boolean befriend(String name01, String name02){
+    public boolean befriend(String name01, String name02, int weight){
         //TODO 08: Freundschaften schließen.
         Vertex vertex1 = allUsers.getVertex(name01);
         Vertex vertex2 = allUsers.getVertex(name02);
         if(vertex1 != null && vertex2 != null){
             Edge edge = allUsers.getEdge(vertex1, vertex2);
             if(edge == null) {
-                allUsers.addEdge(new Edge(vertex1, vertex2, 1));
+                allUsers.addEdge(new Edge(vertex1, vertex2, weight));
                 return true;
             }
         }
