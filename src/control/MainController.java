@@ -446,7 +446,7 @@ public class MainController {
         Vertex user02 = allUsers.getVertex(name02);
         if(user01 != null && user02 != null){
             //TODO 17: Schreibe einen Algorithmus, der die kürzeste Verbindung zwischen den Nutzern name01 und name02 als String-Array zurückgibt.
-            List<Vertex>[] a = breitenSuche(name01);
+            List<Vertex>[] a = breitenSuche(name01, true);
             boolean test = false;
             a[0].toFirst();
             while (a[0].hasAccess()){
@@ -486,8 +486,10 @@ public class MainController {
         return null;
     }
 
-    public List<Vertex>[] breitenSuche(String name){
-        allUsers.setAllVertexMarks(false);
+    public List<Vertex>[] breitenSuche(String name, boolean clear){
+        if(clear) {
+            allUsers.setAllVertexMarks(false);
+        }
 
         List<Vertex>[] o = new List[2];
         o[0] = new List<>();
@@ -516,30 +518,31 @@ public class MainController {
         return o;
     }
 
-    public List<Vertex> findWay(Vertex start, Vertex mid, Vertex end){
-        Vertex user01 = allUsers.getVertex(start.getID());
-        Vertex user02 = allUsers.getVertex(mid.getID());
-        Vertex user03 = allUsers.getVertex(end.getID());
+    public String[] findWay(String start, String mid, String end){
+        String[] path = null;
+
+        Vertex user01 = allUsers.getVertex(start);
+        Vertex user02 = allUsers.getVertex(mid);
+        Vertex user03 = allUsers.getVertex(end);
         if(user01 != null && user02 != null && user03 != null){
-            //TODO 17: Schreibe einen Algorithmus, der die kürzeste Verbindung zwischen den Nutzern name01 und name02 als String-Array zurückgibt.
-            List<Vertex>[] a = breitenSuche(user01.getID());
-            boolean test = false;
+            List<Vertex> listPath = new List<>();
+
+            //Erster Teil: findet den kürzesten Weg, zwischen start und mid
+            Stack<Vertex> stackPath1 = new Stack<>();
+            List<Vertex>[] a = breitenSuche(user01.getID(), true);
+            boolean existsUser02 = false;
             a[0].toFirst();
             while (a[0].hasAccess()){
                 if(a[0].getContent() == user02){
-                    test = true;
+                    existsUser02 = true;
                 }
                 a[0].next();
             }
 
-            if(test) {
-                Stack<Vertex> path = new Stack<>();
-                int counter = 0;
-
+            if(existsUser02) {
                 Vertex target = user02;
                 while (target != user01) {
-                    counter++;
-                    path.push(target);
+                    stackPath1.push(target);
                     a[0].toFirst();
                     a[1].toFirst();
                     while (a[0].hasAccess() && a[0].getContent() != target) {
@@ -548,11 +551,64 @@ public class MainController {
                     }
                     target = a[1].getContent();
                 }
-                counter++;
-                path.push(user01);
+                stackPath1.push(user01);
             }
 
+            //Zweiter Teil: Clears all vertices and marks the first path
+            allUsers.setAllVertexMarks(false);
+            while (!stackPath1.isEmpty()){
+                Vertex v = stackPath1.pop();
+                v.setMark(true);
+                listPath.append(v);
+            }
+
+            //Dritter Teil: findet den kürzesten Weg, zwischen mid und end
+            Stack<Vertex> stackPath2 = new Stack<>();
+            List<Vertex>[] b = breitenSuche(user02.getID(), false);
+            boolean existsUser03 = false;
+            a[0].toFirst();
+            while (a[0].hasAccess()){
+                if(a[0].getContent() == user03){
+                    existsUser03 = true;
+                }
+                a[0].next();
+            }
+
+            if(existsUser03) {
+                Vertex target = user03;
+                while (target != user02) {
+                    stackPath2.push(target);
+                    a[0].toFirst();
+                    a[1].toFirst();
+                    while (a[0].hasAccess() && a[0].getContent() != target) {
+                        a[0].next();
+                        a[1].next();
+                    }
+                    target = a[1].getContent();
+                }
+            }
+
+            //Vierter Teil: Adds the vertices to the list
+            while (!stackPath2.isEmpty()){
+                Vertex v = stackPath1.pop();
+                v.setMark(true);
+                listPath.append(v);
+            }
+
+            int help = 0;
+            listPath.toFirst();
+            while (listPath.hasAccess()){
+                help++;
+                listPath.next();
+            }
+            path = new String[help];
+
+            listPath.toFirst();
+            for (int i = 0; listPath.hasAccess(); i++){
+                path[i] = listPath.getContent().getID();
+                listPath.next();
+            }
         }
-        return null;
+        return path;
     }
 }

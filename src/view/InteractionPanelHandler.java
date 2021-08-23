@@ -30,6 +30,10 @@ public class InteractionPanelHandler {
     private JButton getConnectedGraph;
     private JButton getShortestPath;
     private JTextField weight;
+    private JTextField startPerson;
+    private JTextField midPerson;
+    private JTextField endPerson;
+    private JButton getPathButton;
     private JButton breitensuche;
 
     private MainController mainController;
@@ -193,6 +197,28 @@ public class InteractionPanelHandler {
                         addToSysoutput(str);
                     }else{
                         addToSysoutput("Es wurde keine Verbindung zwischen " + from + " und " + to + " gefunden.");
+                    }
+                }else{
+                    addToSysoutput("Für die Suche müssen Sie zwei Personen angeben.");
+                }
+            }
+        });
+        getPathButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(!startPerson.getText().isEmpty() && !midPerson.getText().isEmpty() && !endPerson.getText().isEmpty()){
+                    String start = startPerson.getText();
+                    String mid = midPerson.getText();
+                    String end = endPerson.getText();
+                    String[] link = mainController.findWay(start, mid, end);
+                    if(link != null){
+                        String str = "";
+                        for(int i = 0; i < link.length; i++){
+                            str = str + link[i] + " -> ";
+                        }
+                        addToSysoutput(str);
+                    }else{
+                        addToSysoutput("Es wurde keine Verbindung zwischen " + start + " und " + end + " über " + mid + " gefunden.");
                     }
                 }else{
                     addToSysoutput("Für die Suche müssen Sie zwei Personen angeben.");
