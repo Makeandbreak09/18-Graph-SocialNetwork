@@ -515,4 +515,44 @@ public class MainController {
         }
         return o;
     }
+
+    public List<Vertex> findWay(Vertex start, Vertex mid, Vertex end){
+        Vertex user01 = allUsers.getVertex(start.getID());
+        Vertex user02 = allUsers.getVertex(mid.getID());
+        Vertex user03 = allUsers.getVertex(end.getID());
+        if(user01 != null && user02 != null && user03 != null){
+            //TODO 17: Schreibe einen Algorithmus, der die kürzeste Verbindung zwischen den Nutzern name01 und name02 als String-Array zurückgibt.
+            List<Vertex>[] a = breitenSuche(user01.getID());
+            boolean test = false;
+            a[0].toFirst();
+            while (a[0].hasAccess()){
+                if(a[0].getContent() == user02){
+                    test = true;
+                }
+                a[0].next();
+            }
+
+            if(test) {
+                Stack<Vertex> path = new Stack<>();
+                int counter = 0;
+
+                Vertex target = user02;
+                while (target != user01) {
+                    counter++;
+                    path.push(target);
+                    a[0].toFirst();
+                    a[1].toFirst();
+                    while (a[0].hasAccess() && a[0].getContent() != target) {
+                        a[0].next();
+                        a[1].next();
+                    }
+                    target = a[1].getContent();
+                }
+                counter++;
+                path.push(user01);
+            }
+
+        }
+        return null;
+    }
 }
